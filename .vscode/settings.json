@@ -3,6 +3,6 @@
   "json.format.enable": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint":"explicit"
+    "source.fixAll.eslint": "explicit"
   }
 }
