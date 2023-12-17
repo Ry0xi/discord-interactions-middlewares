@@ -1,7 +1,7 @@
 *.js
 !jest.config.js
 !.eslintrc.js
-!prettierrc.js
+!.prettierrc.js
 *.d.ts
 node_modules
 .env
