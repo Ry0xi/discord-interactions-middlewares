@@ -1,10 +1,17 @@
-# Welcome to your CDK TypeScript project
+# AWS Lambda Handler and Middlewares that handling Discord API Interactions
 
-This is a blank project for CDK development with TypeScript.
+## Handlers
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+### discord-bot-handler
+- handle discord bot application commands
+- with two middlewares to handle interactions
+  - discord-handle-ping-message: ACK a `PING` message
+  - discord-authorization: verify request
 
-## Useful commands
+### application-command-handler
+- do something for your application
+
+## CDK Useful commands
 
 * `npm run build`   compile typescript to js
 * `npm run watch`   watch for changes and compile
