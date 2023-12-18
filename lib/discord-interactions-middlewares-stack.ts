@@ -5,11 +5,13 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { FunctionUrlAuthType } from 'aws-cdk-lib/aws-lambda';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as ssm from 'aws-cdk-lib/aws-ssm';
 import type { Construct } from 'constructs';
 
 export interface DiscordInteractionsMiddlewaresStackProps
     extends cdk.StackProps {
     ssmPrefix: string;
+    discordPublicKey: string;
 }
 
 export class DiscordInteractionsMiddlewaresStack extends cdk.Stack {
@@ -67,5 +69,18 @@ export class DiscordInteractionsMiddlewaresStack extends cdk.Stack {
         discordInteractionsHandler.addFunctionUrl({
             authType: FunctionUrlAuthType.NONE,
         });
+
+        [{ key: 'discordPublicKey', value: `${props.discordPublicKey}` }].map(
+            (kv) => ({
+                kv: kv,
+                param: new ssm.StringParameter(this, kv.key, {
+                    allowedPattern: '.*',
+                    description: `${kv.key}`,
+                    parameterName: `/${props.ssmPrefix}/${kv.key}`,
+                    stringValue: kv.value,
+                    tier: ssm.ParameterTier.STANDARD,
+                }),
+            }),
+        );
     }
 }

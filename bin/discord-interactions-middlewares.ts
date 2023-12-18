@@ -21,5 +21,6 @@ new DiscordInteractionsMiddlewaresStack(
     {
         env,
         ssmPrefix: getRequiredEnv('SSM_PREFIX'),
+        discordPublicKey: getRequiredEnv('DISCORD_PUBLIC_KEY'),
     },
 );
