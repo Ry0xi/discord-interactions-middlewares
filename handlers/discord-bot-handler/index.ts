@@ -7,22 +7,37 @@ import type {
     APIGatewayProxyEventV2,
     APIGatewayProxyResultV2,
 } from 'aws-lambda';
+import { InteractionResponseType, InteractionType } from 'discord-interactions';
 
 import type { DiscordInteractionEvent } from '@/handlers/interaction-event-schema';
 import discordAuthorizationMiddleware from '@/handlers/middlewares/discord-authorization';
 import discordHandlePingMessageMiddleware from '@/handlers/middlewares/discord-handle-ping-message';
-import { getEnv } from '@/handlers/utils';
 
 const handleInteraction = async (
     event: DiscordInteractionEvent,
 ): Promise<APIGatewayProxyResultV2> => {
-    console.log('Start handling interaction.');
-    console.log('SSM_PREFIX:', getEnv('SSM_PREFIX'));
-    console.log('event:', event);
+    if (event.body.type === InteractionType.APPLICATION_COMMAND) {
+        return {
+            statusCode: 200,
+            body: JSON.stringify({
+                type: InteractionResponseType.CHANNEL_MESSAGE_WITH_SOURCE,
+                data: {
+                    content:
+                        event.body.data?.options?.[0]?.value ??
+                        'you can type any text.',
+                },
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+    }
 
     return {
-        statusCode: 200,
-        body: 'ok',
+        statusCode: 400,
+        body: JSON.stringify({
+            message: 'Bad Request',
+        }),
     };
 };
 
