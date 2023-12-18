@@ -1,0 +1,13 @@
+{
+  "name": "hello",
+  "type": 1,
+  "description": "hello...?",
+  "options": [
+    {
+      "name": "text",
+      "description": "anything you want to say",
+      "type": 3,
+      "required": true
+    }
+  ]
+}
