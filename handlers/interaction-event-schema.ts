@@ -4,6 +4,7 @@ import type { InteractionType } from 'discord-interactions';
 export interface DiscordInteractionEvent
     extends Omit<APIGatewayProxyEventV2, 'body'> {
     body: InteractionBodyType;
+    rawBody: string;
 }
 
 export interface InteractionBodyType {

@@ -4,6 +4,7 @@
   "private": true,
   "description": "",
   "dependencies": {
+    "@aws-sdk/client-ssm": "^3.474.0",
     "@middy/core": "^5.1.0",
     "@middy/http-error-handler": "^5.1.0",
     "@middy/http-header-normalizer": "^5.1.0",
